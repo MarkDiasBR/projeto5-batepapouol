@@ -1,1 +1,217 @@
-    
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #e5e5e5;
+    overflow-y: hidden;
+}
+
+div.overlay-entrada {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;   
+}
+
+div.overlay-entrada > div,
+div.overlay-entrada > div::after {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+
+
+div.overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.6);
+} 
+
+div.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 259px;
+    height: 100%;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.sidebar div.botao-sidebar {
+    width: calc(100% - 18px);
+    position: relative;
+    padding-top: 10px;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+}
+
+div.sidebar div.botao-sidebar p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+div.sidebar div.botao-sidebar p,
+div.sidebar div.botao-sidebar ion-icon {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+div.sidebar > p.titulo-sidebar {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    margin: 25px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+div.sidebar div.botao-sidebar > ion-icon:first-child {
+    margin-left: 12px;
+
+}
+
+div.sidebar div.botao-sidebar > ion-icon:last-child {
+    color: #28BB25;
+    position: absolute;
+    right: 10px;
+    --ionicon-stroke-width: 110px;
+}
+
+header {
+    height: 80px;
+    width: 100%;
+    padding: 22px;
+    box-sizing: border-box;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+header ion-icon {
+    font-size: 40px;
+}
+
+footer {
+    height: 80px;
+    width: 100%;
+    padding-left: 17px;
+    padding-right: 18px;
+    box-sizing: border-box;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+footer ion-icon {
+    font-size: 26px;
+    margin-left: 12px;
+}
+
+footer textarea {
+    max-height: 53px;
+    width: 100%;
+    box-sizing: border-box;
+    resize: none;
+    overflow-y: hidden;
+    border: none;
+    outline: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+footer textarea::placeholder {
+    font-style: italic;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    color: black;
+    opacity: 1;
+}
+
+footer textarea::-webkit-input-placeholder {
+    color:black;
+}
+
+footer textarea::-moz-placeholder {
+    color: black;
+}
+
+footer textarea::-ms-placeholder {
+    color:black;
+}
+
+footer p {
+    color: #505050;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 25px;
+}
+
+
+main {
+    margin-top: 106px;
+    margin-bottom: 106px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background-color: #f3f3f3;
+}
+
+main > div.mensagem {
+    padding: 14px 8px;
+    border-radius: 2px;
+    background-color: #FFFFFF;
+}
+
+main > div.mensagem.reservadamente {
+    background-color: #FFDEDE;
+}
+
+main > div.entrada,
+main > div.saida {
+    background-color: #DCDCDC;
+}
+
+main > div span.horario {
+    color: #AAAAAA;
+    display: inline-block;
+    width: 80px;
+}
+
+main > div span.usuario {
+    font-weight: 700;
+}
+
+main > div span.conteudo-mensagem {
+    line-height: 20px;
+    margin-left: 8px;
+}
