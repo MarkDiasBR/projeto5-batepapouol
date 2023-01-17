@@ -5,3 +5,11 @@ textarea.addEventListener("keyup", e => {
     console.log(scHeight);
     textarea.style.height = `${scHeight}px`;
 });
+
+function toggleSidebar() {
+    const sidebar = document.querySelector(".sidebar");
+    sidebar.classList.toggle("ativo");
+
+    const overlay = document.querySelector(".overlay");
+    overlay.classList.toggle("ativo");
+}

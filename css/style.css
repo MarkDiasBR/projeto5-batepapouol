@@ -72,6 +72,10 @@ div.overlay-entrada > div > button {
     border: none;
 } 
 
+.botao-overlay-sidebar {
+    padding: 10px;
+}
+
 div.overlay {
     position: fixed;
     top: 0;
@@ -80,8 +84,16 @@ div.overlay {
     width: 100%;
     z-index: 1;
     background-color: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transition: all 1s linear;
     display: none;
 } 
+
+div.overlay.ativo {
+    display: block;
+    opacity: 1;
+    transition: all 1s linear;
+}
 
 div.sidebar {
     position: fixed;
@@ -93,6 +105,14 @@ div.sidebar {
     display: flex;
     flex-direction: column;
     align-items: center;
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+
+div.sidebar.ativo {
+    opacity: 1;
+    transition: all 0.5s;
 }
 
 div.sidebar div.botao-sidebar {
