@@ -16,5 +16,6 @@ function toggleSidebar() {
     document.body.classList.toggle("body-overlay");
 }
 
-const overlayFora = document.querySelector(".overlay::not(wrapper-sidebar)
-addEventListener("click",toggleSidebar())
+const overlayFora = document.querySelector(".overlay-fora");
+
+overlayFora.addEventListener("click",toggleSidebar);

@@ -100,6 +100,11 @@ div.overlay {
     width: 0;
 }
 
+div.overlay-fora {
+    height: 100%;
+    width: 100%;
+}
+
 div.overlay.ativo {
     width: 100%;
     opacity: 1.0;
@@ -123,7 +128,7 @@ div.sidebar {
     padding-bottom: 60px;
     box-sizing: border-box;
     height: 100%;
-    width: 100%;
+    width: 259px;
     background-color: #FFFFFF;
     transform: rotateY(90deg);
     transform-origin: right;
