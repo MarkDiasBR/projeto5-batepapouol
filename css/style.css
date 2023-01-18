@@ -6,6 +6,10 @@ html {
 
 body {
     background-color: #e5e5e5;
+    overflow-y: auto;
+}
+
+body.body-overlay {
     overflow-y: hidden;
 }
 
@@ -79,41 +83,119 @@ div.overlay-entrada > div > button {
 div.overlay {
     position: fixed;
     top: 0;
-    right: 0;
-    height: 100%;
+    left: 0;
     width: 100%;
+    height: 100%;
     z-index: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
     background-color: rgba(0, 0, 0, 0.6);
     opacity: 0;
-    transition: all 1s linear;
-    display: none;
-} 
+    transition: opacity 0.2s, width 0s 0.2s;
+    transition: opacity 0.2s linear, width 0s 0.2s;
+    -webkit-transition: opacity 0.2s linear, width 0s 0.2s;
+    -moz-transition: opacity 0.2s linear, width 0s 0.2s;
+    width: 0;
+}
 
 div.overlay.ativo {
-    display: block;
-    opacity: 1;
-    transition: all 1s linear;
+    width: 100%;
+    opacity: 1.0;
+    transition: opacity 0.2s linear, width 0s;
+    -webkit-transition: opacity 0.2s linear, width 0s;
+    -moz-transition: opacity 0.2s linear, width 0s;
+}
+
+div.wrapper-sidebar {
+    height: 100vh;
+    width: 259px;
+    /*
+    position: relative;
+    width: 259px;
+    height: 100%;
+    */
 }
 
 div.sidebar {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 259px;
+    padding-top: 40px;
+    padding-bottom: 60px;
+    box-sizing: border-box;
     height: 100%;
+    width: 100%;
+    background-color: #FFFFFF;
+    transform: rotateY(90deg);
+    transform-origin: right;
+    transform-style: preserve-3d;
+    transition: 1s linear;
+    -webkit-transition: 0.1s linear;
+    -moz-transition: 0.1s linear;
+    backface-visibility: hidden;
+    /*
+    position: absolute;
+    height: 100%;
+    width: 100%;
     background-color: #FFFFFF;
     display: flex;
     flex-direction: column;
     align-items: center;
-    opacity: 0;
-    transition: all 0.5s;
-}
+    transition: 1s linear;
+    -webkit-transition: 1s linear;
+    -moz-transition: 1s linear;
 
+    backface-visibility: hidden;
+    transform: rotateY(180px);
+    */
+}
 
 div.sidebar.ativo {
-    opacity: 1;
-    transition: all 0.5s;
+    transform: rotateY(0deg);
+    transform-origin: right;
+    overflow-y: auto;
 }
+
+div.sidebar.ativo {
+    /*
+    transform: rotateY(0px);
+    transform-origin: right;
+    transition: 1s linear;
+    -webkit-transition: 1s linear;
+    -moz-transition: 1s linear;*/
+    
+}
+
+div.overlay {
+    /*
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;  
+
+
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transition: opacity 1s, width 0s 1s;
+    height: 100%;
+    width: 0;
+    transition: opacity 1s linear, width 0s 1s;
+    -webkit-transition: opacity 1s linear, width 0s 1s;
+    -moz-transition: opacity 1s linear, width 0s 1s;
+    */
+} 
+
+div.overlay.ativo {
+    /*width: 100%;
+    opacity: 1.0;
+    transition: opacity 1s linear, width 0s;
+    -webkit-transition: opacity 1s linear, width 0s;
+    -moz-transition: opacity 1s linear, width 0s;*/
+}
+
+
 
 div.sidebar div.botao-sidebar {
     width: calc(100% - 18px);
@@ -139,7 +221,10 @@ div.sidebar > p.titulo-sidebar {
     font-weight: 700;
     font-size: 16px;
     line-height: 19px;
-    margin: 25px auto;
+    padding-top: 25px;
+    margin-bottom: 25px;
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     justify-content: center;
     align-items: center;

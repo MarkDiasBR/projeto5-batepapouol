@@ -12,4 +12,9 @@ function toggleSidebar() {
 
     const overlay = document.querySelector(".overlay");
     overlay.classList.toggle("ativo");
+
+    document.body.classList.toggle("body-overlay");
 }
+
+const overlayFora = document.querySelector(".overlay::not(wrapper-sidebar)
+addEventListener("click",toggleSidebar())
