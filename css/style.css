@@ -137,6 +137,10 @@ div.sidebar {
     -webkit-transition: 0.1s linear;
     -moz-transition: 0.1s linear;
     backface-visibility: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     /*
     position: absolute;
     height: 100%;
@@ -238,7 +242,8 @@ div.sidebar > p.titulo-sidebar {
 }
 
 div.sidebar div.botao-sidebar > ion-icon:first-child {
-    margin-left: 12px;
+    margin-left: 10px;
+    margin-right: 6px;
 
 }
 
