@@ -24,7 +24,6 @@ div.overlay-entrada {
     display: flex;
     flex-direction: column;
     align-items: center;
-    display: none;
 }
 
 div.overlay-entrada > div {
@@ -75,6 +74,10 @@ div.overlay-entrada > div > button {
     height: 45px;
     border: none;
 } 
+
+.overlay-entrada.login-ok {
+    display: none;
+}
 
 .botao-overlay-sidebar {
     padding: 10px;
