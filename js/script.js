@@ -92,6 +92,18 @@ function jogarMensagensNoHTML(response) {
             <p><span class="horario">(${mensagem.time})</span><span class="usuario">${mensagem.from}</span><span class="conteudo-mensagem">${mensagem.text}</span></p>
         </div>
         `;
+        } else if (mensagem.type === "private_message" && (mensagem.to === nomeUsuario || mensagem.from === nomeUsuario)) {
+            mensagens.innerHTML += `
+        <div data-test="message" class="mensagem reservadamente">
+            <p><span class="horario">(${mensagem.time})</span><span class="usuario">${mensagem.from}</span><span class="tipo-mensagem"></span> reservadamente para </span><span class="usuario">${mensagem.to}</span><span class="dois-pontos">:</span><span class="conteudo-mensagem">${mensagem.text}</span></p>
+        </div>
+        `;
+        } else { //mensagem.type === "message"
+            mensagens.innerHTML += `
+        <div data-test="message" class="mensagem"> 
+            <p><span class="horario">(${mensagem.time})</span><span class="usuario">${mensagem.from}</span><span class="tipo-mensagem"> para </span><span class="usuario">${mensagem.to}</span>:<span class="conteudo-mensagem">${mensagem.text}</span></p>
+        </div>
+        `;
         }
     });
     console.log("fim loop");
