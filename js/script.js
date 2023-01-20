@@ -31,14 +31,15 @@ function logarUsuario() {
     const novoUsuario = {
         name: `${document.querySelector('.input-login').value}`
     };
-    alert(novoUsuario)
-    const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', novoUsuario);
-    promessa.then(loginSucesso);
-    promessa.catch(loginFalha);
+    console.log(novoUsuario)
+    const promessa1 = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', novoUsuario);
+    promessa1.then(loginSucesso);
+    promessa1.catch(loginFalha);
 }
 
 function loginSucesso(response) {
-    alert("sucesso");
+    console.log(response);
+    console.log("login feito com sucesso");
     nomeUsuario = document.querySelector('.input-login').value;
     objetoUsuario = {
         name: `${nomeUsuario}`
@@ -46,26 +47,24 @@ function loginSucesso(response) {
     const overlayEntrada = document.querySelector('.overlay-entrada');
     overlayEntrada.classList.add("login-ok");
     mantemConexao();
-    console.log(response);
 }
 
 function loginFalha(response) {
-    alert("falha");
+    console.log("falha");
     console.log(response);
 }
 
 function buscarMensagens() {
-    const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', novoUsuario);
-    promessa.then(loginSucesso);
-    promessa.catch(loginFalha);
+    const promessa3 = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', novoUsuario);
+    promessa3.then(loginSucesso);
+    promessa3.catch(loginFalha);
 }
 
 function mantemConexao() {
-    setInterval(estouOnline, 1000);
+    let interval = setInterval(estouOnline, 5000);
 }
 
 function estouOnline() {
-    axios.get('https://mock-api.driven.com.br/api/v6/uol/status', objetoUsuario)
-        .then(alert('continuo online'))
-        .catch(alert('agora estou offline'))
+    const promessa2 = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', objetoUsuario);
+    promessa2.then(function(){console.log('continuo online')}).catch(function(){console.log('agora estou offline')});
 }
