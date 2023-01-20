@@ -63,6 +63,7 @@ function buscarMensagens() {
 function mantemConexao() {
     let interval = setInterval(estouOnline, 5000);
     let interval2 = setInterval(buscarMensagens, 5000);
+    let interval3 = setInterval(buscarParticipantes, 5000);
 }
 
 function estouOnline() {
@@ -107,4 +108,29 @@ function jogarMensagensNoHTML(response) {
         }
     });
     console.log("fim loop");
+}
+
+function enviarMensagem() {
+    const novaMensagem = {
+        from: nomeUsuario,
+        to: nomeDestinatario,
+        text: document.querySelector('.input-message').value,
+        type: tipoMensagem // ou "private_message" para o bônus
+    };
+    const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', novaMensagem);
+    promessa.then(function () {console.log("mensagem enviada")});
+    promessa.catch(function () {console.log("mensagem não enviada")});
+}
+
+let participantes = []; // Lembrar de incluir TODOS entre participantes
+
+function buscarParticipantes() {
+    const promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
+    promessa.then(function(response) {
+        participantes = [];
+        response.data.forEach(element => {
+            participantes.push(element.name);
+        });
+    });
+    console.log(participantes);
 }
