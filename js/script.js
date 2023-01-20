@@ -32,9 +32,9 @@ function logarUsuario() {
         name: `${document.querySelector('.input-login').value}`
     };
     console.log(novoUsuario)
-    const promessa1 = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', novoUsuario);
-    promessa1.then(loginSucesso);
-    promessa1.catch(loginFalha);
+    const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', novoUsuario);
+    promessa.then(loginSucesso);
+    promessa.catch(loginFalha);
 }
 
 function loginSucesso(response) {
@@ -55,16 +55,42 @@ function loginFalha(response) {
 }
 
 function buscarMensagens() {
-    const promessa3 = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', novoUsuario);
-    promessa3.then(loginSucesso);
-    promessa3.catch(loginFalha);
+    const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', novoUsuario);
+    promessa.then(loginSucesso);
+    promessa.catch(loginFalha);
 }
 
 function mantemConexao() {
     let interval = setInterval(estouOnline, 5000);
+    let interval2 = setInterval(buscarMensagens, 5000);
 }
 
 function estouOnline() {
-    const promessa2 = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', objetoUsuario);
-    promessa2.then(function(){console.log('continuo online')}).catch(function(){console.log('agora estou offline')});
+    const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', objetoUsuario);
+    promessa.then(function(){console.log('continuo online')});
+    promessa.catch(function(){console.log('agora estou offline')});
+}
+
+function buscarMensagens() {
+    const promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
+    promessa.then(jogarMensagensNoHTML);
+    promessa.catch(function (){console.log('erro ao buscar mensagens')});
+}
+
+const mensagens = document.querySelector("main");
+
+function jogarMensagensNoHTML(response) {
+    console.log('mensagens buscadas com sucesso');
+    console.log(response.data);
+    console.log(response.data[0].type)
+    response.data.forEach(mensagem => {
+        if (mensagem.type === "status") {
+            mensagens.innerHTML += `
+        <div data-test="message" class="mensagem entrada-saida">
+            <p><span class="horario">(09:21:45)</span><span class="usuario">João</span><span class="conteudo-mensagem">entra na sala...</span></p>
+        </div>
+        `;
+        }
+    });
+    console.log(response);
 }

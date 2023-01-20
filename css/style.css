@@ -372,8 +372,7 @@ main > div.mensagem.reservadamente {
     background-color: #FFDEDE;
 }
 
-main > div.entrada,
-main > div.saida {
+main > div.entrada-saida {
     background-color: #DCDCDC;
 }
 
