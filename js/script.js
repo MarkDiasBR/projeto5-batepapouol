@@ -77,20 +77,22 @@ function buscarMensagens() {
     promessa.catch(function (){console.log('erro ao buscar mensagens')});
 }
 
-const mensagens = document.querySelector("main");
+let mensagens = document.querySelector('main');
 
 function jogarMensagensNoHTML(response) {
+    
     console.log('mensagens buscadas com sucesso');
+    console.log(response);
     console.log(response.data);
-    console.log(response.data[0].type)
+    mensagens.innerHTML = "";
     response.data.forEach(mensagem => {
         if (mensagem.type === "status") {
             mensagens.innerHTML += `
         <div data-test="message" class="mensagem entrada-saida">
-            <p><span class="horario">(09:21:45)</span><span class="usuario">João</span><span class="conteudo-mensagem">entra na sala...</span></p>
+            <p><span class="horario">(${mensagem.time})</span><span class="usuario">${mensagem.from}</span><span class="conteudo-mensagem">${mensagem.text}</span></p>
         </div>
         `;
         }
     });
-    console.log(response);
+    console.log("fim loop");
 }
