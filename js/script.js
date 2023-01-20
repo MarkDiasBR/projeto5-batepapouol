@@ -24,10 +24,13 @@ overlayFora.addEventListener("click",toggleSidebar);
 
 //************Axios*************
 
+let nomeUsuario;
+let objetoUsuario;
+
 function logarUsuario() {
     const novoUsuario = {
-                            name: `${document.querySelector('.input-login').value}`
-                        };
+        name: `${document.querySelector('.input-login').value}`
+    };
     alert(novoUsuario)
     const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', novoUsuario);
     promessa.then(loginSucesso);
@@ -36,10 +39,14 @@ function logarUsuario() {
 
 function loginSucesso(response) {
     alert("sucesso");
+    nomeUsuario = document.querySelector('.input-login').value;
+    objetoUsuario = {
+        name: `${nomeUsuario}`
+    };
     const overlayEntrada = document.querySelector('.overlay-entrada');
     overlayEntrada.classList.add("login-ok");
+    mantemConexao();
     console.log(response);
-    
 }
 
 function loginFalha(response) {
@@ -54,5 +61,11 @@ function buscarMensagens() {
 }
 
 function mantemConexao() {
+    setInterval(estouOnline, 1000);
+}
 
+function estouOnline() {
+    axios.get('https://mock-api.driven.com.br/api/v6/uol/status', objetoUsuario)
+        .then(alert('continuo online'))
+        .catch(alert('agora estou offline'))
 }
