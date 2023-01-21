@@ -133,7 +133,7 @@ function jogarMensagensNoHTML(response) {
             <p><span class="horario">(${mensagem.time})</span><span class="usuario">${mensagem.from}</span><span class="tipo-mensagem"></span> reservadamente para </span><span class="usuario">${mensagem.to}</span><span class="dois-pontos">:</span><span class="conteudo-mensagem">${mensagem.text}</span></p>
         </div>
         `;
-        } else { //mensagem.type === "message"
+        } else if (mensagem.type = "message") { //mensagem.type === "message"
             mensagens.innerHTML += `
         <div data-test="message" class="mensagem"> 
             <p><span class="horario">(${mensagem.time})</span><span class="usuario">${mensagem.from}</span><span class="tipo-mensagem"> para </span><span class="usuario">${mensagem.to}</span>:<span class="conteudo-mensagem">${mensagem.text}</span></p>
@@ -180,7 +180,7 @@ function enviarMensagem() {
 function tipoDeMensagem() {
     if (document.querySelector(".privacy.public.selected") !== null) {
         return "message";
-    } else {
+    } else if (document.querySelector(".privacy.reserved.selected") !== null) {
         return "private_message";
     }
 }
