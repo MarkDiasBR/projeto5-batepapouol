@@ -162,6 +162,14 @@ div.sidebar {
     */
 }
 
+div.sidebar > div.wrapper-participants,
+div.sidebar > div.wrapper-reserved {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 259px;
+}
+
 div.sidebar.ativo {
     transform: rotateY(0deg);
     transform-origin: right;
@@ -256,6 +264,16 @@ div.sidebar div.botao-sidebar > ion-icon:last-child {
     position: absolute;
     right: 10px;
     --ionicon-stroke-width: 110px;
+}
+
+div.wrapper-participants > div.participant > ion-icon:last-child, 
+div.wrapper-participants > div.all > ion-icon:last-child {
+    visibility: hidden;
+}
+
+div.wrapper-participants > div.participant.selected > ion-icon:last-child, 
+div.wrapper-participants > div.all.selected > ion-icon:last-child {
+    visibility: visible;
 }
 
 header {

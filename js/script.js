@@ -46,6 +46,9 @@ function loginSucesso(response) {
     };
     const overlayEntrada = document.querySelector('.overlay-entrada');
     overlayEntrada.classList.add("login-ok");
+    estouOnline();
+    buscarMensagens();
+    buscarParticipantes();
     mantemConexao();
 }
 
@@ -131,6 +134,89 @@ function buscarParticipantes() {
         response.data.forEach(element => {
             participantes.push(element.name);
         });
+        participantes = participantes.filter(elem=>elem !== nomeUsuario);
     });
     console.log(participantes);
+    jogarParticipantesNoHTML();
+}
+
+let nomeDestinatario = "Todos";
+let nomeSelecionado = "A";
+
+function jogarParticipantesNoHTML() {
+    alert(nomeSelecionado);
+
+    if (document.querySelector(".all.selected > p") !== null) {
+        nomeSelecionado = "Todos";
+    } else if (document.querySelector(".participant.selected > p") !== null) {
+        nomeSelecionado = "" + document.querySelector(".participant.selected > p").innerHTML; //Copiar valor, não referencia
+    } else {
+        nomeSelecionado = "Todos";
+    }
+
+    const participantesHTML = document.querySelector(".wrapper-participants");
+
+    if (nomeSelecionado === "Todos") {
+        participantesHTML.innerHTML = `
+        <div data-test="all" class="botao-sidebar selected all" onclick="selecionaDestinatario(this)">
+            <ion-icon name="people"></ion-icon>
+            <p>Todos</p>
+            <ion-icon data-test="check" name="checkmark-outline"></ion-icon>
+        </div>
+        `;
+        nomeDestinatario = "Todos";
+    } else {
+        alert(document.querySelector(".all.selected > p"));
+        alert(document.querySelector(".participant.selected > p"));
+        participantesHTML.innerHTML = `
+        <div data-test="all" class="botao-sidebar all" onclick="selecionaDestinatario(this)">
+            <ion-icon name="people"></ion-icon>
+            <p>Todos</p>
+            <ion-icon data-test="check" name="checkmark-outline"></ion-icon>
+        </div>
+        `;
+        alert(document.querySelector(".all.selected > p"));
+        alert(document.querySelector(".participant.selected > p"));
+    }
+
+    participantes.forEach(element => {
+        if (element === nomeSelecionado) {
+            participantesHTML.innerHTML += `
+            <div data-test="participant" class="botao-sidebar participant" onclick="selecionaDestinatario(this)">
+                <ion-icon name="person-circle"></ion-icon>
+                <p>${element}</p>
+                <ion-icon data-test="check" name="checkmark-outline"></ion-icon>
+            </div>
+            `;
+            nomeDestinatario = nomeSelecionado.innerHTML;
+
+        } else {
+            participantesHTML.innerHTML += `
+            <div data-test="participant" class="botao-sidebar participant" onclick="selecionaDestinatario(this)">
+                <ion-icon name="person-circle"></ion-icon>
+                <p>${element}</p>
+                <ion-icon data-test="check" name="checkmark-outline"></ion-icon>
+            </div>
+            `;
+        }
+    });
+    alert("nome selecionado final do loop: " + nomeSelecionado)
+}
+
+
+
+function selecionaDestinatario(destinatarioClicado) {
+    if ( document.querySelector(".participant.selected") === null ) {
+        if (document.querySelector(".all.selected") !== null) {
+            document.querySelector(".all.selected").classList.remove("selected");
+        }
+        destinatarioClicado.classList.add("selected");
+
+    } else if ( destinatarioClicado.classList.contains("selected") ) {
+        destinatarioClicado.classList.remove("selected");
+        document.querySelector(".all").classList.add("selected");
+    } else if ( document.querySelector(".participant.selected") !== null) {
+        document.querySelector(".participant.selected").classList.remove("selected");
+        destinatarioClicado.classList.add("selected");
+    }
 }
