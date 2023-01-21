@@ -83,12 +83,6 @@ function loginFalha(response) {
     console.log(response);
 }
 
-function buscarMensagens() {
-    const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', novoUsuario);
-    promessa.then(loginSucesso);
-    promessa.catch(loginFalha);
-}
-
 let delayEstouOnline = 5000;
 let delayBuscarParticipantes = 10000;
 let delayBuscarMensagens = 3000;
@@ -108,19 +102,28 @@ function estouOnline() {
 
 function buscarMensagens() {
     const promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
-    promessa.then(jogarMensagensNoHTML);
-    promessa.catch(function (){console.log('erro ao buscar mensagens')});
+    promessa.then(retornaRespostaAPI);
+}
+let respostaAPI;
+
+function retornaRespostaAPI(response) {
+    console.log("resposta API abaixo (response)")
+    console.log(response);
+    respostaAPI = [...response.data];
+    jogarMensagensNoHTML(respostaAPI);
+}
+
+function erroRespostaAPI(response) {
+    console.log(response);
+    return response;
 }
 
 let mensagens = document.querySelector('main');
 
 function jogarMensagensNoHTML(response) {
     
-    console.log('mensagens buscadas com sucesso');
-    console.log(response);
-    console.log(response.data);
     mensagens.innerHTML = "";
-    response.data.forEach(mensagem => {
+    response.forEach(mensagem => {
         if (mensagem.type === "status") {
             mensagens.innerHTML += `
         <div data-test="message" class="mensagem entrada-saida">
@@ -133,7 +136,7 @@ function jogarMensagensNoHTML(response) {
             <p><span class="horario">(${mensagem.time})</span><span class="usuario">${mensagem.from}</span><span class="tipo-mensagem"></span> reservadamente para </span><span class="usuario">${mensagem.to}</span><span class="dois-pontos">:</span><span class="conteudo-mensagem">${mensagem.text}</span></p>
         </div>
         `;
-        } else if (mensagem.type = "message") { //mensagem.type === "message"
+        } else if (mensagem.type === "message") { //mensagem.type === "message"
             mensagens.innerHTML += `
         <div data-test="message" class="mensagem"> 
             <p><span class="horario">(${mensagem.time})</span><span class="usuario">${mensagem.from}</span><span class="tipo-mensagem"> para </span><span class="usuario">${mensagem.to}</span>:<span class="conteudo-mensagem">${mensagem.text}</span></p>
@@ -172,9 +175,7 @@ function enviarMensagem() {
         const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', novaMensagem);
         promessa.then(function () {console.log("mensagem enviada")});
         promessa.catch(function () {console.log("mensagem não enviada")});
-
     }
-
 }
 
 function tipoDeMensagem() {
