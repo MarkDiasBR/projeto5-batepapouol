@@ -275,6 +275,9 @@ function selecionaDestinatario(destinatarioClicado) {
         //variável nome do destinatário com valor do novo botão
         nomeDestinatario = destinatarioClicado.querySelector("p").innerHTML;
 
+        //muda o footer pro nome do novo destinatário
+        document.querySelector("span.input-message-destinatario").innerHTML = nomeDestinatario;
+
     //Se o destinatário antigo for o mesmo que o selecionado, sendo ele DIFERENTE de "Todos", o programa vai retirar a seleção atual e voltar o valor inicial "Todos"
     } else if (destinatarioClicado.classList.contains("selected") && destinatarioClicado.querySelector("p").innerHTML !== "Todos") {
 
@@ -300,7 +303,8 @@ function selecionaDestinatario(destinatarioClicado) {
         //variável nome do destinatário com valor padrão "Todos"
         nomeDestinatario = "Todos";        
 
-        
+        //muda o footer pro nome do novo destinatário
+        document.querySelector("span.input-message-destinatario").innerHTML = "Todos";
 
     //Se o destinatário antigo e o novo forem != "Todos"
     } else if (nomeDestinatario !== "Todos" && destinatarioClicado.querySelector("p").innerHTML !== "Todos") {
@@ -313,6 +317,9 @@ function selecionaDestinatario(destinatarioClicado) {
 
         //variável nome do destinatário com valor do novo botão
         nomeDestinatario = "" + destinatarioClicado.querySelector("p").innerHTML;
+
+        //muda o footer pro nome do novo destinatário
+        document.querySelector("span.input-message-destinatario").innerHTML = nomeDestinatario;
     
     //Se  o destinatário antigo for != "Todos" e o novo for == "Todos"
     } else if (nomeDestinatario !== "Todos" && destinatarioClicado.querySelector("p").innerHTML === "Todos") {
@@ -338,6 +345,9 @@ function selecionaDestinatario(destinatarioClicado) {
 
         //variável nome do destinatário com valor padrão "Todos"
         nomeDestinatario = "Todos";  
+
+        //muda o footer pro nome do novo destinatário
+        document.querySelector("span.input-message-destinatario").innerHTML = "Todos";
     }
 
 }
