@@ -400,12 +400,12 @@ main > div.mensagem {
     background-color: #FFFFFF;
 }
 
-main > div.mensagem.reservadamente {
-    background-color: #FFDEDE;
+main > div.mensagem.entrada-saida {
+    background-color: #DCDCDC;
 }
 
-main > div.entrada-saida {
-    background-color: #DCDCDC;
+main > div.mensagem.reservadamente {
+    background-color: #FFDEDE;
 }
 
 main > div span.horario {
