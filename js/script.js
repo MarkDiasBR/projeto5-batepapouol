@@ -44,11 +44,12 @@ function loginSucesso(response) {
     objetoUsuario = {
         name: `${nomeUsuario}`
     };
-    const overlayEntrada = document.querySelector('.overlay-entrada');
-    overlayEntrada.classList.add("login-ok");
+    
     estouOnline();
     buscarMensagens();
     buscarParticipantes();
+    const overlayEntrada = document.querySelector('.overlay-entrada');
+    overlayEntrada.classList.add("login-ok");
     mantemConexao();
 }
 
@@ -65,8 +66,8 @@ function buscarMensagens() {
 
 function mantemConexao() {
     let interval = setInterval(estouOnline, 5000);
-    let interval3 = setInterval(buscarParticipantes, 5000);
-    let interval2 = setInterval(buscarMensagens, 5000);
+    let interval3 = setInterval(buscarParticipantes, 10000);
+    let interval2 = setInterval(buscarMensagens, 3000);
     
 }
 
