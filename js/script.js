@@ -119,11 +119,19 @@ function enviarMensagem() {
         from: nomeUsuario,
         to: nomeDestinatario,
         text: document.querySelector('.input-message').value,
-        type: tipoMensagem // ou "private_message" para o bônus
+        type: tipoDeMensagem() // ou "private_message" para o bônus
     };
     const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', novaMensagem);
     promessa.then(function () {console.log("mensagem enviada")});
     promessa.catch(function () {console.log("mensagem não enviada")});
+}
+
+function tipoDeMensagem() {
+    if (document.querySelector(".privacy.public.selected") !== null) {
+        return "message";
+    } else {
+        return "private_message";
+    }
 }
 
 let participantes = []; // Lembrar de incluir TODOS entre participantes
