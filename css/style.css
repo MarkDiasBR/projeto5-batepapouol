@@ -410,11 +410,14 @@ main > div.entrada-saida {
 
 main > div span.horario {
     color: #AAAAAA;
+    white-space: nowrap;
     display: inline-block;
     width: 80px;
 }
 
 main > div span.usuario {
+    max-width: 180px;
+    word-wrap: break-word;
     font-weight: 700;
 }
 
@@ -433,4 +436,12 @@ main > div span.conteudo-mensagem {
 
 .input-message-privacidade:not(.selected) {
     display: none;
+}
+
+.participant > p {
+    width: 180px;
+    max-width: 180;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }

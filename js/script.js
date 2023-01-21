@@ -206,12 +206,24 @@ let nomeSelecionado;
 const participantesHTML = document.querySelector(".wrapper-participants");
 
 function jogarParticipantesNoHTML() {
-    if (document.querySelector(".all.selected > p") !== null) {
+    if (document.querySelector(".all.selected > p") !== null || !(participantes.includes(nomeDestinatario)) ) {
         nomeSelecionado = "Todos";
+        //Se o parágrafo do Input for Reservadamente
+        if (document.querySelector(".input-message-privacidade.selected").innerHTML === "reservadamente") {
+
+            //Modificar o paragrafo do Input
+            document.querySelectorAll(".input-message-privacidade").forEach(elem=>elem.classList.toggle("selected"));
+        }
     } else if (document.querySelector(".participant.selected > p") !== null) {
         nomeSelecionado = document.querySelector(".participant.selected > p").innerHTML; //Copiar valor, não referencia
     } else {
         nomeSelecionado = "Todos";
+        //Se o parágrafo do Input for Reservadamente
+        if (document.querySelector(".input-message-privacidade.selected").innerHTML === "reservadamente") {
+
+            //Modificar o paragrafo do Input
+            document.querySelectorAll(".input-message-privacidade").forEach(elem=>elem.classList.toggle("selected"));
+        }
     }
 
     if (nomeSelecionado === "Todos") {
