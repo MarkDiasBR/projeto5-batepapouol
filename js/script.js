@@ -194,9 +194,9 @@ function jogarParticipantesNoHTML() {
             `;
         }
     });
+    nomeDestinatario = nomeSelecionado;
+    avaliaPrivacidade();
 }
-
-
 
 function selecionaDestinatario(destinatarioClicado) {
     if ( document.querySelector(".participant.selected") === null ) {
@@ -205,11 +205,110 @@ function selecionaDestinatario(destinatarioClicado) {
         }
         destinatarioClicado.classList.add("selected");
 
+        if (document.querySelector(".participant.selected > p") !== null) {
+            nomeDestinatario = document.querySelector(".participant.selected > p").innerHTML;
+        } else {
+            nomeDestinatario = "Todos";
+        }
+        
     } else if ( destinatarioClicado.classList.contains("selected") ) {
         destinatarioClicado.classList.remove("selected");
         document.querySelector(".all").classList.add("selected");
+        nomeDestinatario = "Todos";
+        //ADICIONAR DISABLED RESERVADAMENTE
+        document.querySelector(".privacy.reserved").classList.add("gray-disabled");
+
+
     } else if ( document.querySelector(".participant.selected") !== null) {
         document.querySelector(".participant.selected").classList.remove("selected");
         destinatarioClicado.classList.add("selected");
+
+        if (document.querySelector(".participant.selected > p") !== null) {
+            nomeDestinatario = document.querySelector(".participant.selected > p").innerHTML;
+        }
+
+        if (document.querySelector(".all.selected > p") !== null) {
+            nomeDestinatario = "Todos";
+            //ADICIONAR DISABLED RESERVADAMENTE
+            document.querySelector(".privacy.reserved").classList.add("gray-disabled");
+        }
     }
 }
+
+function avaliaPrivacidade() {
+    //se TODOS
+        //se não PUBLICO
+            //adicionar PUBLICO
+        //se RESERVADAMENTE
+            //remover RESERVADAMENTE
+    //se não TODOS
+        //
+
+
+
+    //se TODOS
+    if (nomeDestinatario === "Todos") {
+        //se não PUBLICO
+        if (document.querySelector(".privacy.public.selected") === null) {
+            //ADICIONAR PUBLICO
+            document.querySelector(".privacy.public").classList.add("selected");
+        }
+
+        //se RESERVADAMENTE
+        if (document.querySelector(".privacy.reserved.selected") !== null) {
+            //REMOVER RESERVADAMENTE
+            document.querySelector(".privacy.reserved").classList.remove("selected");
+        }
+
+        //ADICIONAR DISABLED RESERVADAMENTE
+        document.querySelector(".privacy.reserved").classList.add("gray-disabled");
+    //se não TODOS
+    } else {
+        //REMOVER DISABLED RESERVADAMENTE
+        if (document.querySelector(".privacy.reserved.gray-disabled") !== null) {
+            document.querySelector(".privacy.reserved").classList.remove("gray-disabled");
+        }
+        
+    }
+    /*
+    // se não TODOS
+    } else {
+        //se não PUBLICO
+        if (document.querySelector(".privacy.public.selected") === null) {
+            //se PUBLICO
+            if (document.querySelector(".privacy.public.selected") !== null) {
+                //REMOVER PUBLICO
+                document.querySelector(".privacy.public").classList.remove("selected");
+                // se RESERVADAMETE
+                if (document.querySelector(".privacy.reserved.selected") !== null) {
+                    document.querySelector(".privacy.reserved").classList.remove("gray-disabled");
+                }
+            }
+            if (document.querySelector(".privacy.reserved.selected") === null) {
+                document.querySelector(".privacy.reserved").classList.add("selected");
+            }
+        } else {
+            if (document.querySelector(".privacy.public.selected") !== null) {
+                document.querySelector(".privacy.public").classList.remove("selected");
+
+                if (document.querySelector(".privacy.reserved") !== null) {
+                    document.querySelector(".privacy.reserved").classList.remove("gray-disabled");
+                }
+            }
+            if (document.querySelector(".privacy.reserved.selected") === null) {
+                document.querySelector(".privacy.reserved").classList.add("selected");
+            }
+        }
+    }*/
+}
+    
+function selecionaPrivacidade() {
+    if (nomeDestinatario !== "Todos") {
+        document.querySelector(".privacy.reserved").classList.toggle("selected");
+        document.querySelector(".privacy.public").classList.toggle("selected")
+        //REMOVER DISABLED RESERVADAMENTE
+        if (document.querySelector(".privacy.reserved.gray-disabled") !== null) {
+            document.querySelector(".privacy.reserved").classList.remove("gray-disabled");
+        }
+    }
+}   

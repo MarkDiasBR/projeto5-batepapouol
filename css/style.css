@@ -276,6 +276,15 @@ div.wrapper-participants > div.all.selected > ion-icon:last-child {
     visibility: visible;
 }
 
+div.wrapper-reserved > div.privacy > ion-icon:last-child {
+    visibility: hidden;
+
+}
+
+div.wrapper-reserved > div.privacy.selected > ion-icon:last-child {
+    visibility: visible;
+}
+
 header {
     height: 80px;
     width: 100%;
@@ -408,4 +417,12 @@ main > div span.usuario {
 main > div span.conteudo-mensagem {
     line-height: 20px;
     margin-left: 8px;
+}
+
+.privacy.reserved {
+    color: #000;
+}
+
+.privacy.reserved.gray-disabled {
+    color: cadetblue;
 }
