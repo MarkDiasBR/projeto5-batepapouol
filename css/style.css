@@ -430,3 +430,7 @@ main > div span.conteudo-mensagem {
 .privacy.reserved.gray-disabled {
     color: cadetblue;
 }
+
+.input-message-privacidade:not(.selected) {
+    display: none;
+}

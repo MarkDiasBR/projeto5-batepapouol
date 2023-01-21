@@ -328,6 +328,13 @@ function selecionaDestinatario(destinatarioClicado) {
         //Desabilitar o botão Reservadamente
         document.querySelector(".privacy.reserved").classList.add("gray-disabled");
 
+        //Se o parágrafo do Input for Reservadamente
+        if (document.querySelector(".input-message-privacidade.selected").innerHTML === "reservadamente") {
+
+            //Modificar o paragrafo do Input
+            document.querySelectorAll(".input-message-privacidade").forEach(elem=>elem.classList.toggle("selected"));
+        }
+        
         //Se o botão Reservadamente está selecionado
         if ( document.querySelector(".privacy.reserved.selected") !== null ) {
 
@@ -463,8 +470,11 @@ function avaliaPrivacidade() {
     
 function selecionaPrivacidade() {
     if (nomeDestinatario !== "Todos") {
+
         document.querySelector(".privacy.reserved").classList.toggle("selected");
-        document.querySelector(".privacy.public").classList.toggle("selected")
+        document.querySelector(".privacy.public").classList.toggle("selected");
+        document.querySelectorAll(".input-message-privacidade").forEach(elem=>elem.classList.toggle("selected"));
+
         //REMOVER DISABLED RESERVADAMENTE
         if (document.querySelector(".privacy.reserved.gray-disabled") !== null) {
             document.querySelector(".privacy.reserved").classList.remove("gray-disabled");
