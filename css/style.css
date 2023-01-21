@@ -80,6 +80,10 @@ div.overlay-entrada > div > button {
     display: none;
 }
 
+img.spinner {
+    object-fit: scale-down;
+}
+
 .botao-overlay-sidebar {
     padding: 10px;
 }

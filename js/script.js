@@ -1,13 +1,13 @@
 //************Layout*************
 
-const textarea = document.querySelector("textarea");
+/*const textarea = document.querySelector("textarea");
 textarea.addEventListener("keyup", e => {
     textarea.style.height = "auto";
     let scHeight = e.target.scrollHeight;
     console.log(scHeight);
     textarea.style.height = `${scHeight}px`;
 });
-
+*/
 function toggleSidebar() {
     const sidebar = document.querySelector(".sidebar");
     sidebar.classList.toggle("ativo");
@@ -27,14 +27,31 @@ overlayFora.addEventListener("click",toggleSidebar);
 let nomeUsuario;
 let objetoUsuario;
 
+const inputEntrar = document.querySelector("input.input-login");
+
+inputEntrar.addEventListener('keydown', function (event) {
+    if ( event.keyCode === 13 && document.querySelector(".input-login").value != "" ) {
+        logarUsuario();
+    }
+});
+
+
 function logarUsuario() {
-    const novoUsuario = {
-        name: `${document.querySelector('.input-login').value}`
-    };
-    console.log(novoUsuario)
-    const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', novoUsuario);
-    promessa.then(loginSucesso);
-    promessa.catch(loginFalha);
+
+    //SE input-login é não-vazio
+    if (document.querySelector(".input-login").value != "") {
+        const novoUsuario = {
+            name: `${document.querySelector('.input-login').value}`
+        };
+        console.log(novoUsuario)
+        const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', novoUsuario);
+        promessa.then(loginSucesso);
+        promessa.catch(loginFalha);
+    //SE input-login é vazio
+    } else {
+        alert("Digite o nome de usuário");
+    }
+        
 }
 
 function loginSucesso(response) {
@@ -44,12 +61,20 @@ function loginSucesso(response) {
     objetoUsuario = {
         name: `${nomeUsuario}`
     };
-    
+    //trocar o conjunto input+button pelo gif de loading
+    document.querySelector("div.overlay-entrada > div:last-child").innerHTML = `
+    <img class="spinner" src="./img/spinner.gif">
+    `;
+
+    setTimeout(function() {
+        const overlayEntrada = document.querySelector('.overlay-entrada');
+        overlayEntrada.classList.add("login-ok");
+    }, Math.max(delayEstouOnline, delayBuscarParticipantes, delayBuscarMensagens));
+ 
     estouOnline();
     buscarMensagens();
     buscarParticipantes();
-    const overlayEntrada = document.querySelector('.overlay-entrada');
-    overlayEntrada.classList.add("login-ok");
+    
     mantemConexao();
 }
 
@@ -64,10 +89,14 @@ function buscarMensagens() {
     promessa.catch(loginFalha);
 }
 
+let delayEstouOnline = 5000;
+let delayBuscarParticipantes = 10000;
+let delayBuscarMensagens = 3000;
+
 function mantemConexao() {
-    let interval = setInterval(estouOnline, 5000);
-    let interval3 = setInterval(buscarParticipantes, 10000);
-    let interval2 = setInterval(buscarMensagens, 3000);
+    let interval = setInterval(estouOnline, delayEstouOnline);
+    let interval3 = setInterval(buscarParticipantes, delayBuscarParticipantes);
+    let interval2 = setInterval(buscarMensagens, delayBuscarMensagens);
     
 }
 
@@ -115,16 +144,37 @@ function jogarMensagensNoHTML(response) {
     console.log("fim loop");
 }
 
+const inputMensagem = document.querySelector("textarea.input-message");
+
+inputMensagem.addEventListener('keydown', function (event) {
+    if ( event.keyCode === 13 && document.querySelector(".input-message").value != "" ) {
+        enviarMensagem();
+    }
+});
+
+inputMensagem.addEventListener('keyup', function (event) {
+    if ( event.keyCode === 13 && document.querySelector(".input-message").value != "" ) {
+        document.querySelector('.input-message').value = "";
+    }
+    
+});
+
 function enviarMensagem() {
-    const novaMensagem = {
-        from: nomeUsuario,
-        to: nomeDestinatario,
-        text: document.querySelector('.input-message').value,
-        type: tipoDeMensagem() // ou "private_message" para o bônus
-    };
-    const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', novaMensagem);
-    promessa.then(function () {console.log("mensagem enviada")});
-    promessa.catch(function () {console.log("mensagem não enviada")});
+    //Se input menxagem não está vazio
+    if (document.querySelector('.input-message').value != "") {
+
+        const novaMensagem = {
+            from: nomeUsuario,
+            to: nomeDestinatario,
+            text: document.querySelector('.input-message').value,
+            type: tipoDeMensagem() // ou "private_message" para o bônus
+        };
+        const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', novaMensagem);
+        promessa.then(function () {console.log("mensagem enviada")});
+        promessa.catch(function () {console.log("mensagem não enviada")});
+
+    }
+
 }
 
 function tipoDeMensagem() {
