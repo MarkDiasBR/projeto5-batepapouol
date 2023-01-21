@@ -65,8 +65,9 @@ function buscarMensagens() {
 
 function mantemConexao() {
     let interval = setInterval(estouOnline, 5000);
-    let interval2 = setInterval(buscarMensagens, 5000);
     let interval3 = setInterval(buscarParticipantes, 5000);
+    let interval2 = setInterval(buscarMensagens, 5000);
+    
 }
 
 function estouOnline() {
@@ -199,6 +200,92 @@ function jogarParticipantesNoHTML() {
 }
 
 function selecionaDestinatario(destinatarioClicado) {
+
+    //Se o destinatário antigo = "Todos" e o destinatário selecionado != "Todos"
+    if (nomeDestinatario === "Todos" && destinatarioClicado.querySelector("p").innerHTML !== "Todos") {
+
+        //Habilita o botão Reservadamente
+        document.querySelector(".privacy.reserved").classList.remove("gray-disabled");
+
+        //Remove classe .selected do botão antigo "Todos"
+        document.querySelector(".all.selected").classList.remove("selected");
+
+        //Adiciona classe .selected no novo botão
+        destinatarioClicado.classList.add("selected");
+
+        //variável nome do destinatário com valor do novo botão
+        nomeDestinatario = destinatarioClicado.querySelector("p").innerHTML;
+
+    //Se o destinatário antigo for o mesmo que o selecionado, sendo ele DIFERENTE de "Todos", o programa vai retirar a seleção atual e voltar o valor inicial "Todos"
+    } else if (destinatarioClicado.classList.contains("selected") && destinatarioClicado.querySelector("p").innerHTML !== "Todos") {
+
+        //Desabilitar o botão Reservadamente
+        document.querySelector(".privacy.reserved").classList.add("gray-disabled");
+
+        //Se o botão Reservadamente está selecionado
+        if ( document.querySelector(".privacy.reserved.selected") !== null ) {
+
+            //Desselecionar o botão Reservadamente
+            document.querySelector(".privacy.reserved").classList.toggle("selected");
+
+            //Selecionar o botão Público
+            document.querySelector(".privacy.public").classList.toggle("selected");
+        }
+        
+        //Adiciona classe .selected no botão "Todos"
+        document.querySelector(".all").classList.add("selected");
+
+        //remove classe .selected do botão antigo
+        destinatarioClicado.classList.remove("selected");
+
+        //variável nome do destinatário com valor padrão "Todos"
+        nomeDestinatario = "Todos";        
+
+        
+
+    //Se o destinatário antigo e o novo forem != "Todos"
+    } else if (nomeDestinatario !== "Todos" && destinatarioClicado.querySelector("p").innerHTML !== "Todos") {
+
+        //Remover classe .selected do destinatário antigo
+        document.querySelector(".participant.selected").classList.remove("selected");
+
+        //Adicionar classe .selected ao destinatário novo
+        destinatarioClicado.classList.add("selected");
+
+        //variável nome do destinatário com valor do novo botão
+        nomeDestinatario = "" + destinatarioClicado.querySelector("p").innerHTML;
+    
+    //Se  o destinatário antigo for != "Todos" e o novo for == "Todos"
+    } else if (nomeDestinatario !== "Todos" && destinatarioClicado.querySelector("p").innerHTML === "Todos") {
+        
+        //Desabilitar o botão Reservadamente
+        document.querySelector(".privacy.reserved").classList.add("gray-disabled");
+
+        //Se o botão Reservadamente está selecionado
+        if ( document.querySelector(".privacy.reserved.selected") !== null ) {
+
+            //Desselecionar o botão Reservadamente
+            document.querySelector(".privacy.reserved").classList.toggle("selected");
+
+            //Selecionar o botão Público
+            document.querySelector(".privacy.public").classList.toggle("selected");
+        }
+
+        //Remover classe .selected do destinatário antigo
+        document.querySelector(".participant.selected").classList.remove("selected");
+
+        //Adiciona classe .selected no botão "Todos"
+        document.querySelector(".all").classList.add("selected");
+
+        //variável nome do destinatário com valor padrão "Todos"
+        nomeDestinatario = "Todos";  
+    }
+
+}
+
+
+/* JUNKYARD
+
     if ( document.querySelector(".participant.selected") === null ) {
         if (document.querySelector(".all.selected") !== null) {
             document.querySelector(".all.selected").classList.remove("selected");
@@ -233,7 +320,9 @@ function selecionaDestinatario(destinatarioClicado) {
             document.querySelector(".privacy.reserved").classList.add("gray-disabled");
         }
     }
-}
+
+    
+}*/
 
 function avaliaPrivacidade() {
     //se TODOS
