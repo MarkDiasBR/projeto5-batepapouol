@@ -141,20 +141,17 @@ function buscarParticipantes() {
 }
 
 let nomeDestinatario = "Todos";
-let nomeSelecionado = "A";
+let nomeSelecionado;
+const participantesHTML = document.querySelector(".wrapper-participants");
 
 function jogarParticipantesNoHTML() {
-    alert(nomeSelecionado);
-
     if (document.querySelector(".all.selected > p") !== null) {
         nomeSelecionado = "Todos";
     } else if (document.querySelector(".participant.selected > p") !== null) {
-        nomeSelecionado = "" + document.querySelector(".participant.selected > p").innerHTML; //Copiar valor, não referencia
+        nomeSelecionado = document.querySelector(".participant.selected > p").innerHTML; //Copiar valor, não referencia
     } else {
         nomeSelecionado = "Todos";
     }
-
-    const participantesHTML = document.querySelector(".wrapper-participants");
 
     if (nomeSelecionado === "Todos") {
         participantesHTML.innerHTML = `
@@ -166,8 +163,6 @@ function jogarParticipantesNoHTML() {
         `;
         nomeDestinatario = "Todos";
     } else {
-        alert(document.querySelector(".all.selected > p"));
-        alert(document.querySelector(".participant.selected > p"));
         participantesHTML.innerHTML = `
         <div data-test="all" class="botao-sidebar all" onclick="selecionaDestinatario(this)">
             <ion-icon name="people"></ion-icon>
@@ -175,14 +170,13 @@ function jogarParticipantesNoHTML() {
             <ion-icon data-test="check" name="checkmark-outline"></ion-icon>
         </div>
         `;
-        alert(document.querySelector(".all.selected > p"));
-        alert(document.querySelector(".participant.selected > p"));
+
     }
 
     participantes.forEach(element => {
         if (element === nomeSelecionado) {
             participantesHTML.innerHTML += `
-            <div data-test="participant" class="botao-sidebar participant" onclick="selecionaDestinatario(this)">
+            <div data-test="participant" class="botao-sidebar participant selected" onclick="selecionaDestinatario(this)">
                 <ion-icon name="person-circle"></ion-icon>
                 <p>${element}</p>
                 <ion-icon data-test="check" name="checkmark-outline"></ion-icon>
@@ -200,7 +194,6 @@ function jogarParticipantesNoHTML() {
             `;
         }
     });
-    alert("nome selecionado final do loop: " + nomeSelecionado)
 }
 
 
