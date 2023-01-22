@@ -400,7 +400,8 @@ main > div.mensagem {
     background-color: #FFFFFF;
 }
 
-main > div.mensagem.entrada-saida {
+main > div.mensagem.entrada-saida,
+main > div.mensagem.status, {
     background-color: #DCDCDC;
 }
 

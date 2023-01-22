@@ -116,7 +116,7 @@ function jogarMensagensNoHTML(response) {
     response.forEach(mensagem => {
         if (mensagem.type === "status") {
             mensagens.innerHTML += `
-        <div data-test="message" class="mensagem entrada-saida">
+        <div data-test="message" class="mensagem entrada-saida status">
             <p><span class="horario">(${mensagem.time})</span><span class="usuario">${mensagem.from}</span><span class="conteudo-mensagem">${mensagem.text}</span></p>
         </div>
         `;
@@ -362,57 +362,7 @@ function selecionaDestinatario(destinatarioClicado) {
 
 }
 
-
-/* JUNKYARD
-
-    if ( document.querySelector(".participant.selected") === null ) {
-        if (document.querySelector(".all.selected") !== null) {
-            document.querySelector(".all.selected").classList.remove("selected");
-        }
-        destinatarioClicado.classList.add("selected");
-
-        if (document.querySelector(".participant.selected > p") !== null) {
-            nomeDestinatario = document.querySelector(".participant.selected > p").innerHTML;
-        } else {
-            nomeDestinatario = "Todos";
-        }
-        
-    } else if ( destinatarioClicado.classList.contains("selected") ) {
-        destinatarioClicado.classList.remove("selected");
-        document.querySelector(".all").classList.add("selected");
-        nomeDestinatario = "Todos";
-        //ADICIONAR DISABLED RESERVADAMENTE
-        document.querySelector(".privacy.reserved").classList.add("gray-disabled");
-
-
-    } else if ( document.querySelector(".participant.selected") !== null) {
-        document.querySelector(".participant.selected").classList.remove("selected");
-        destinatarioClicado.classList.add("selected");
-
-        if (document.querySelector(".participant.selected > p") !== null) {
-            nomeDestinatario = document.querySelector(".participant.selected > p").innerHTML;
-        }
-
-        if (document.querySelector(".all.selected > p") !== null) {
-            nomeDestinatario = "Todos";
-            //ADICIONAR DISABLED RESERVADAMENTE
-            document.querySelector(".privacy.reserved").classList.add("gray-disabled");
-        }
-    }
-
-    
-}*/
-
 function avaliaPrivacidade() {
-    //se TODOS
-        //se não PUBLICO
-            //adicionar PUBLICO
-        //se RESERVADAMENTE
-            //remover RESERVADAMENTE
-    //se não TODOS
-        //
-
-
 
     //se TODOS
     if (nomeDestinatario === "Todos") {
@@ -438,39 +388,11 @@ function avaliaPrivacidade() {
         }
         
     }
-    /*
-    // se não TODOS
-    } else {
-        //se não PUBLICO
-        if (document.querySelector(".privacy.public.selected") === null) {
-            //se PUBLICO
-            if (document.querySelector(".privacy.public.selected") !== null) {
-                //REMOVER PUBLICO
-                document.querySelector(".privacy.public").classList.remove("selected");
-                // se RESERVADAMETE
-                if (document.querySelector(".privacy.reserved.selected") !== null) {
-                    document.querySelector(".privacy.reserved").classList.remove("gray-disabled");
-                }
-            }
-            if (document.querySelector(".privacy.reserved.selected") === null) {
-                document.querySelector(".privacy.reserved").classList.add("selected");
-            }
-        } else {
-            if (document.querySelector(".privacy.public.selected") !== null) {
-                document.querySelector(".privacy.public").classList.remove("selected");
 
-                if (document.querySelector(".privacy.reserved") !== null) {
-                    document.querySelector(".privacy.reserved").classList.remove("gray-disabled");
-                }
-            }
-            if (document.querySelector(".privacy.reserved.selected") === null) {
-                document.querySelector(".privacy.reserved").classList.add("selected");
-            }
-        }
-    }*/
 }
     
 function selecionaPrivacidade() {
+    
     if (nomeDestinatario !== "Todos") {
 
         document.querySelector(".privacy.reserved").classList.toggle("selected");
