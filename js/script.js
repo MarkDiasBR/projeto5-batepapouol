@@ -16,6 +16,7 @@ overlayFora.addEventListener("click",toggleSidebar);
 //************Axios*************
 
 let nomeUsuario;
+let nomeNovoUsuario;
 let objetoUsuario;
 
 const inputEntrar = document.querySelector("input.input-login");
@@ -34,27 +35,38 @@ function logarUsuario() {
         const novoUsuario = {
             name: `${document.querySelector('.input-login').value}`
         };
+
+        nomeNovoUsuario = novoUsuario.name;
+
         console.log(novoUsuario)
+
         const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', novoUsuario);
         promessa.then(loginSucesso);
         promessa.catch(loginFalha);
+
     //SE input-login é vazio
     } else {
         alert("Digite o nome de usuário");
     }
-        
+
+    //trocar o conjunto input+button pelo gif de loading
+    document.querySelector("div.overlay-entrada > div:last-child").innerHTML = `
+    <img class="spinner" src="./img/spinner.gif"><p>Entrando...</p>
+    `;
+
 }
 
 function loginSucesso(response) {
     console.log(response);
     console.log("login feito com sucesso");
-    nomeUsuario = document.querySelector('.input-login').value;
+    nomeUsuario = nomeNovoUsuario;
     objetoUsuario = {
         name: `${nomeUsuario}`
     };
-    //trocar o conjunto input+button pelo gif de loading
+
+    //trocar o conjunto input+button pelo gif + bem vindo, usuário
     document.querySelector("div.overlay-entrada > div:last-child").innerHTML = `
-    <img class="spinner" src="./img/spinner.gif">
+    <img class="spinner" src="./img/spinner.gif"><p>Bem-vindo(a), ${nomeUsuario}!</p>
     `;
 
     //coloca o tempo de loading da overlay de entrada como o maior dos delays de processamento,
@@ -74,6 +86,8 @@ function loginSucesso(response) {
 function loginFalha(response) {
     console.log("falha");
     console.log(response);
+    alert(`Nome de usuário "${nomeNovoUsuario}" não está disponível.\nInsira outro nome de usuário.`);
+    window.location.reload();
 }
 
 let delayEstouOnline = 5000;
@@ -88,15 +102,16 @@ function mantemConexao() {
 }
 
 function estouOnline() {
-    const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', objetoUsuario);
-    promessa.then(function(){console.log('continuo online')});
-    promessa.catch(function(){console.log('agora estou offline')});
+    const promise = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', objetoUsuario);
+    promise.then(function(){console.log('continuo online')});
+    promise.catch(function(){console.log('agora estou offline')});
 }
 
 function buscarMensagens() {
-    const promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
-    promessa.then(retornaRespostaAPI);
+    const promise = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
+    promise.then(retornaRespostaAPI);
 }
+
 let respostaAPI;
 
 function retornaRespostaAPI(response) {
@@ -153,7 +168,6 @@ inputMensagem.addEventListener('keyup', function (event) {
     if ( event.keyCode === 13 && document.querySelector(".input-message").value != "" ) {
         document.querySelector('.input-message').value = "";
     }
-    
 });
 
 function enviarMensagem() {
@@ -167,7 +181,10 @@ function enviarMensagem() {
             type: tipoDeMensagem() // ou "private_message" para o bônus
         };
         const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', novaMensagem);
-        promessa.then(function () {console.log("mensagem enviada")});
+        promessa.then(function () {
+            buscarMensagens();
+            buscarParticipantes();
+            console.log("mensagem enviada")});
         promessa.catch(function () {console.log("mensagem não enviada")});
     }
 }
