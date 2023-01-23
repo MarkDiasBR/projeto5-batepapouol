@@ -1,3 +1,4 @@
+//Função colocada como valor no onclick do botão superior direito, que abre a sidebar, assim como no overlay, pra recolher o sidebar
 function toggleSidebar() {
     const sidebar = document.querySelector(".sidebar");
     sidebar.classList.toggle("ativo");
@@ -56,6 +57,8 @@ function loginSucesso(response) {
     <img class="spinner" src="./img/spinner.gif">
     `;
 
+    //coloca o tempo de loading da overlay de entrada como o maior dos delays de processamento,
+    //pra que a overlay só seja liberada quando do término do carregamento do conteúdo
     setTimeout(function() {
         const overlayEntrada = document.querySelector('.overlay-entrada');
         overlayEntrada.classList.add("login-ok");
@@ -134,7 +137,8 @@ function jogarMensagensNoHTML(response) {
         `;
         }
     });
-    console.log("fim loop");
+    
+    document.querySelector('main > div:last-child').scrollIntoView();
 }
 
 const inputMensagem = document.querySelector("textarea.input-message");
@@ -392,7 +396,7 @@ function avaliaPrivacidade() {
 }
     
 function selecionaPrivacidade() {
-    
+
     if (nomeDestinatario !== "Todos") {
 
         document.querySelector(".privacy.reserved").classList.toggle("selected");

@@ -401,7 +401,7 @@ main > div.mensagem {
 }
 
 main > div.mensagem.entrada-saida,
-main > div.mensagem.status, {
+main > div.mensagem.status {
     background-color: #DCDCDC;
 }
 
