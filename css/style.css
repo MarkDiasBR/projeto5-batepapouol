@@ -166,7 +166,18 @@ div.sidebar {
     */
 }
 
-div.sidebar > div.wrapper-participants,
+div.sidebar > div.wrapper-participants {
+    height: 100%;
+}
+
+div.sidebar > div.wrapper-participants {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    width: 259px;
+}
+
 div.sidebar > div.wrapper-reserved {
     display: flex;
     flex-direction: column;
@@ -177,7 +188,7 @@ div.sidebar > div.wrapper-reserved {
 div.sidebar.ativo {
     transform: rotateY(0deg);
     transform-origin: right;
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 div.sidebar.ativo {

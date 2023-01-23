@@ -7,6 +7,10 @@ function toggleSidebar() {
     overlay.classList.toggle("ativo");
 
     document.body.classList.toggle("body-overlay");
+
+    if ( !(document.querySelector(".overlay").classList.contains("ativo"))) {
+        inputMensagem.focus();
+    }
 }
 
 const overlayFora = document.querySelector(".overlay-fora");
@@ -27,6 +31,9 @@ inputEntrar.addEventListener('keydown', function (event) {
     }
 });
 
+inputEntrar.value = "";
+inputEntrar.focus();
+
 
 function logarUsuario() {
 
@@ -37,6 +44,11 @@ function logarUsuario() {
         };
 
         nomeNovoUsuario = novoUsuario.name;
+
+        if (nomeNovoUsuario === "Todos") {
+            loginFalha();
+            return;
+        }
 
         console.log(novoUsuario)
 
@@ -75,7 +87,9 @@ function loginSucesso(response) {
         const overlayEntrada = document.querySelector('.overlay-entrada');
         overlayEntrada.classList.add("login-ok");
     }, Math.max(delayEstouOnline, delayBuscarParticipantes, delayBuscarMensagens));
- 
+    
+    inputMensagem.focus();
+
     estouOnline();
     buscarMensagens();
     buscarParticipantes();
@@ -86,7 +100,7 @@ function loginSucesso(response) {
 function loginFalha(response) {
     console.log("falha");
     console.log(response);
-    alert(`Nome de usuário "${nomeNovoUsuario}" não está disponível.\nInsira outro nome de usuário.`);
+    alert(`"${nomeNovoUsuario}" não está disponível.\nInsira outro nome de usuário.`);
     window.location.reload();
 }
 
@@ -165,7 +179,7 @@ inputMensagem.addEventListener('keydown', function (event) {
 });
 
 inputMensagem.addEventListener('keyup', function (event) {
-    if ( event.keyCode === 13 && document.querySelector(".input-message").value != "" ) {
+    if ( event.keyCode === 13) {
         document.querySelector('.input-message').value = "";
     }
 });
